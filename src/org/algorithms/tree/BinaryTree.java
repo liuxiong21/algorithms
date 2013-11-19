@@ -1,24 +1,23 @@
 package org.algorithms.tree;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import org.algorithms.stack.Stack;
 
 public class BinaryTree<T> {
 	
-	private Node<T> root;
+	private Node root;
 	
-	private List<Node<T>> nodes = new ArrayList<Node<T>>();
+	private List<Node> nodes = new ArrayList<Node>();
 	
 	
 	public List<T> preOrderTraverse(){
 		List<T> results = new ArrayList<T>();
-		Stack<Node<T>> stack = new Stack<Node<T>>();
+		Stack<Node> stack = new Stack<Node>();
 		stack.push(root);
 		while(!stack.isEmpty()){
-			Node<T> p;
+			Node p;
 			while((p=stack.peek())!=null){
 				results.add(p.data);
 				stack.push(p.lChild);
@@ -34,10 +33,10 @@ public class BinaryTree<T> {
 	
 	public List<T> inOrderTraverse(){
 		List<T> results = new ArrayList<T>();
-		Stack<Node<T>> stack = new Stack<Node<T>>();
+		Stack<Node> stack = new Stack<Node>();
 		stack.push(root);
 		while(!stack.isEmpty()){
-			Node<T> p;
+			Node p;
 			while((p=stack.peek())!=null)
 				stack.push(p.lChild);
 			stack.pop();
@@ -52,10 +51,10 @@ public class BinaryTree<T> {
 	
 	public List<T> postOrderTraverse(){
 		List<T> results = new ArrayList<T>();
-		Stack<Node<T>> stack = new Stack<Node<T>>();
+		Stack<Node> stack = new Stack<Node>();
 		stack.push(root);
 		while(!stack.isEmpty()){
-			Node<T> p,sibling = null;
+			Node p,sibling = null;
 			while((p=stack.peek())!=null){
 				stack.push(p.lChild);
 				if(p.rChild!=null)
@@ -76,14 +75,14 @@ public class BinaryTree<T> {
 	}
 	
 	public void add(T t){
-		Node<T> nd = root;
+		Node nd = root;
 		if(nd==null){
-			root = new Node<T>();
+			root = new Node();
 			root.data = t;
 			return;
 		}
 		Comparable<T> cptr = (Comparable<T>)t;
-		Node<T> p = null;
+		Node p = null;
 		int cr = 0;
 		while(nd!=null){
 			p = nd;
@@ -95,7 +94,7 @@ public class BinaryTree<T> {
 			else
 				return;
 		}
-		nd = new Node<T>();
+		nd = new Node();
 		nd.data = t;
 		nd.parent = p;
 		if(cr>0)
@@ -104,8 +103,8 @@ public class BinaryTree<T> {
 			p.rChild = nd;
 	}
 	
-	private Node<T> getNode(T t){
-		for(Node<T> node:nodes){
+	private Node getNode(T t){
+		for(Node node:nodes){
 			if(t.equals(node.data)){
 				return node;
 			}
@@ -115,7 +114,7 @@ public class BinaryTree<T> {
 	
 	public boolean remove(T t){
 		Comparable<T> cptr = (Comparable<T>)t;
-		Node<T> nd = root;
+		Node nd = root;
 		while(nd!=null){
 			int s = cptr.compareTo(nd.data);
 			if(s==0){
@@ -137,7 +136,7 @@ public class BinaryTree<T> {
 	
 	public boolean contains(T t){
 		Comparable<T> cptr = (Comparable<T>)t;
-		Node<T> nd = root;
+		Node nd = root;
 		while(nd!=null){
 			int s = cptr.compareTo(nd.data);
 			if(s==0)
@@ -151,7 +150,7 @@ public class BinaryTree<T> {
 	}
 	
 	public T getParent(T t){
-		for(Node<T> node:nodes){
+		for(Node node:nodes){
 			if(t.equals(node.data)){
 				return node.parent.data;
 			}
@@ -171,15 +170,17 @@ public class BinaryTree<T> {
 	public boolean isEmpty(){
 		return root==null;
 	}
+	
+	class Node{
+		
+		public T data;
+		
+		public Node lChild;
+		
+		public Node rChild;
+		
+		public Node parent;
+	}
 }
 
-class Node<T>{
-	
-	public T data;
-	
-	public Node<T> lChild;
-	
-	public Node<T> rChild;
-	
-	public Node<T> parent;
-}
+
